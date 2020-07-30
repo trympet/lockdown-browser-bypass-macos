@@ -1,0 +1,4 @@
+psutil==5.7.2
+pyobjc-core==6.2.2
+pyobjc-framework-Cocoa==6.2.2
+TBB==0.1
