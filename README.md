@@ -22,5 +22,5 @@ chmod +x lockdown-bypass.py
 ## Usage
 1. Start Helium   
 2. Start the script: `python3 ~/Documents/lockdown-browser-bypass/lockdown-bypass.py`   
-3. Click a valid lockdown browser URI to start the lockdown browser session within 10 secs.   
+3. Within 10 seconds of starting the script, click a valid lockdown browser URL to start the lockdown browser session.   
 You can use [this site](https://webassign.com/instructors/features/secure-testing/lockdown-browser/) to test it out
