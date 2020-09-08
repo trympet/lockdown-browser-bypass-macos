@@ -28,24 +28,7 @@ You can use [this site](https://webassign.com/instructors/features/secure-testin
 ## Troubleshooting
   Make sure that you have completeted the prerequistes and installed Helium, Python 3, and the repository correctly. 
   
-  When attempting to install the repository, you recieve these errors:
-  
-   >"ERROR: Could not find a version that satisfies the requirement TBB==0.1 (from -r requirements.txt (line 4)) (from versions: 2018.0.4.1, 2019.0)"
-   
-   >"ERROR: No matching distribution found for TBB==0.1 (from -r requirements.txt (line 4))"
-  
-  `Cd` to the directory `~/Documents/lockdown-browser-bypass` and enter:
-  
-    sed -i '' '/TBB==0.1/d' requirements.txt
-  
-  Then enter:
-  
-    pip3 install -r requirements.txt &&
-    chmod +x lockdown-bypass.py
-  
-  Run script as stated in Usage.
-  
-  ***Note*** : You may also recieve this error when attmepting to run the script:
+  ***Note*** : When attempting to run the script, you may recieve this error:
 
   >"File "lockdown-bypass.py", line 4, in
   >from Cocoa import *
