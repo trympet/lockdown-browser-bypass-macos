@@ -24,3 +24,14 @@ chmod +x lockdown-bypass.py
 2. Start the script: `python3 ~/Documents/lockdown-browser-bypass/lockdown-bypass.py`   
 3. Within 10 seconds of starting the script, click a valid lockdown browser URL to start the lockdown browser session.   
 You can use [this site](https://webassign.com/instructors/features/secure-testing/lockdown-browser/) to test it out
+
+## Troubleshooting
+  Make sure that you have completeted the prerequistes and installed Helium, Python 3, and the repository correctly. 
+  
+  ***Note*** : When attempting to run the script, you may recieve this error:
+
+  >"File "lockdown-bypass.py", line 4, in
+  >from Cocoa import *
+  >ImportError: No module named Cocoa"
+
+  Complete the above steps for troubleshooting and it should resolve, run script as outlined in Usage.
