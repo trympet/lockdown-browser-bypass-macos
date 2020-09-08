@@ -24,3 +24,31 @@ chmod +x lockdown-bypass.py
 2. Start the script: `python3 ~/Documents/lockdown-browser-bypass/lockdown-bypass.py`   
 3. Within 10 seconds of starting the script, click a valid lockdown browser URL to start the lockdown browser session.   
 You can use [this site](https://webassign.com/instructors/features/secure-testing/lockdown-browser/) to test it out
+
+## Troubleshooting
+  Make sure that you have completeted the prerequistes and installed Helium, Python 3, and the repository correctly. 
+  
+  When attempting to install the repository, you recieve these errors:
+  
+   >"ERROR: Could not find a version that satisfies the requirement TBB==0.1 (from -r requirements.txt (line 4)) (from versions: 2018.0.4.1, 2019.0)"
+   
+   >"ERROR: No matching distribution found for TBB==0.1 (from -r requirements.txt (line 4))"
+  
+  `Cd` to the directory `~/Documents/lockdown-browser-bypass` and enter:
+  
+    sed -i '' '/TBB==0.1/d' requirements.txt
+  
+  Then enter:
+  
+    pip3 install -r requirements.txt &&
+    chmod +x lockdown-bypass.py
+  
+  Run script as stated in Usage.
+  
+  ***Note*** : You may also recieve this error when attmepting to run the script:
+
+  >"File "lockdown-bypass.py", line 4, in
+  >from Cocoa import *
+  >ImportError: No module named Cocoa"
+
+  Complete the above steps for troubleshooting and it should resolve, run script as outlined in Usage.
