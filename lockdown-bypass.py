@@ -1,13 +1,3 @@
-#---------------------------------------------------------
-#
-# Copyright (c) Trym Lund Flogard. All rights reserved.
-# This code is licensed under the MIT License (MIT).
-# THIS CODE IS PROVIDED *AS IS* WITHOUT WARRANTY OF
-# ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY
-# IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR
-# PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
-#
-#---------------------------------------------------------
 from Cocoa import *
 import objc
 import time
@@ -15,10 +5,10 @@ import psutil
 import sys
 import os
 
-waitTime = 15 # time before activating
+waitTime = 3 # time before activating
 appName = "Helium" #application to bring to front
 
-def isHeliumRunning():
+def get_helium_pids():
     #Iterate over the all the running process
     pids = []
     for proc in psutil.process_iter():
@@ -29,13 +19,21 @@ def isHeliumRunning():
                 pids.append(proc.pid) #append to pids list if more than one instance running
         except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
             pass
-    if pids:
-        return pids
-    else:
-        return 0;
+    return pids
 
-pid = isHeliumRunning()
-if (pid == 0):
+def bring_to_front(pids):
+    for i in pids:
+        time.sleep(1)
+        x = NSRunningApplication.runningApplicationWithProcessIdentifier_(i)
+        x.hide()
+        time.sleep(1)
+
+        x.unhide()
+        print(f"{i} was unhid!")
+
+pid = get_helium_pids()
+pid_length = len(pid)
+if (not pid):
   print(appName + "not running")
   print("Open " + appName + "? Y / N")
   inp = input()[0].lower()
@@ -46,7 +44,8 @@ if (pid == 0):
     for i in range(int(inp2)):
         os.system(f"open -n {appName}.app")
     time.sleep(0.5)
-    pid = isHeliumRunning() # assigns new pid
+    pid = get_helium_pids() # assigns new pid
+    pid_length = len(pid)
   else:
     print("okay closing...")
     time.sleep(1)
@@ -60,12 +59,14 @@ for i in reversed(range(waitTime)):
   time.sleep(1)
   print(str(i) + "...")
 
-# hides and unhides app
-for i in pid:
-    x = NSRunningApplication.runningApplicationWithProcessIdentifier_(i)
-    x.hide()
-    time.sleep(1)
+bring_to_front(pid)
 
-    x.unhide()
-    time.sleep(2)
+while True:
+    time.sleep(4)
+    while len(get_helium_pids()) is not pid_length:
+        print(len(get_helium_pids()), "len get helium" )
+        print(pid_length, "pid length")
+        os.system(f"open -n {appName}.app")
+        print(f"opened {appName} again")
+        bring_to_front(get_helium_pids())
 print("DONE")
