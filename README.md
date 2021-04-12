@@ -1,5 +1,6 @@
 # LockDown Browser Bypass for MacOS
-Browse the internet, using a PIP browser window, while using [Respondus LockDown Browser](https://web.respondus.com/he/lockdownbrowser/) or [It's Learning Test Mode Browser](https://support.itslearning.com/en/support/solutions/articles/7000053270-test-mode-browser) (prøvemodus).
+Browse the internet, using a PIP browser window, while using [Respondus LockDown Browser](https://web.respondus.com/he/lockdownbrowser/) or [It's Learning Test Mode Browser](https://support.itslearning.com/en/support/solutions/articles/7000053270-test-mode-browser) (prøvemodus). **THIS IS NOT FOR CHEATING/A VIOLATION OF ACADEMIC INTEGRITY** This is meant as a proof of concept to show how useless LockDown Browser is. Please do not use this for cheating. 
+
 ## How it works
 Unlike many other "hacks", this implementation does not utilize binary patching or other modifications. It simply circumvents the lockdown functionality by making a call to the [window manager](https://en.wikipedia.org/wiki/Window_manager), telling it to put the Helium window on top after LDB has been launched. Now you have a small PIP browser that always stays on top. Also, since Helium is a picture in picture browser, the window doesn't disappear when you click outside of the bounds.
 
