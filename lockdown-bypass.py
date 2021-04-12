@@ -5,7 +5,7 @@ import psutil
 import sys
 import os
 
-waitTime = 3 # time before activating
+waitTime = 15 # time before activating
 appName = "Helium" #application to bring to front
 
 def get_helium_pids():
@@ -62,7 +62,7 @@ for i in reversed(range(waitTime)):
 bring_to_front(pid)
 
 while True:
-    time.sleep(4)
+    time.sleep(120)
     while len(get_helium_pids()) is not pid_length:
         print(len(get_helium_pids()), "len get helium" )
         print(pid_length, "pid length")
