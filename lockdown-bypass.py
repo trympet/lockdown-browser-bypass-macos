@@ -12,7 +12,6 @@ def get_helium_pids():
     #Iterate over the all the running process
     pids = []
     for proc in psutil.process_iter():
-        print(proc)
         try:
             # Check if process name contains the given name string.
             if appName.lower() in proc.name().lower():
@@ -64,8 +63,6 @@ bring_to_front(pid)
 while True:
     time.sleep(120)
     while len(get_helium_pids()) is not pid_length:
-        print(len(get_helium_pids()), "len get helium" )
-        print(pid_length, "pid length")
         os.system(f"open -n {appName}.app")
         print(f"opened {appName} again")
         bring_to_front(get_helium_pids())
