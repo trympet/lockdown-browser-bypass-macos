@@ -5,20 +5,66 @@ import psutil
 import sys
 import os
 
-waitTime = 15 # time before activating
-appName = "Helium" #application to bring to front
+# Change this variable to shorten
+# or increase the time before activation 
+activation_timer_seconds = 15
+
+# This is the name of the application which
+# should remain visible.
+app_name = "Helium"
+
+def run():
+    pids = get_helium_pids()
+    print_and_wait_countdown()
+    bring_to_front(pids)
+
+    while True:
+        time.sleep(120)
+        number_of_instances = len(pids)
+        while len(get_helium_pids()) is not number_of_instances:
+            print(f"Instance count changed.")
+            open_helium()
+            print(f"Opened {app_name} again")
+            bring_to_front(get_helium_pids())
 
 def get_helium_pids():
-    #Iterate over the all the running process
+    pids = get_pids_for_name(app_name)
+    if (not pids):
+        answer = input(f"{app_name} not running\nOpen {app_name}? Y / N")
+        if(answer[0].lower() == 'y'):
+            instance_count = input("How many instances?")
+            open_helium(instance_count)
+            time.sleep(0.5)
+            pids = get_pids_for_name(app_name)
+        else:
+            print("Okay closing...")
+            time.sleep(1)
+            exit()
+            
+    print(f"Found {app_name} with pids {str(pids)}")
+    return pids
+
+def get_pids_for_name(name):
     pids = []
     for proc in psutil.process_iter():
         try:
-            # Check if process name contains the given name string.
-            if appName.lower() in proc.name().lower():
-                pids.append(proc.pid) #append to pids list if more than one instance running
+            if name.lower() in proc.name().lower():
+                pids.append(proc.pid)
         except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
             pass
     return pids
+
+def open_helium(instance_count = 1):
+    for i in range(instance_count):
+        print("Opening " + app_name)
+        os.system(f"open -n {app_name}.app")
+        
+
+def print_and_wait_countdown(waitTime):
+    print("You have " + str(waitTime) + "seconds")
+    for i in reversed(range(waitTime)):
+      time.sleep(1)
+      print(str(i) + "...")
 
 def bring_to_front(pids):
     for i in pids:
@@ -28,42 +74,6 @@ def bring_to_front(pids):
         time.sleep(1)
 
         x.unhide()
-        print(f"{i} was unhid!")
+        print(f"PID {i} was unhid!")
 
-pid = get_helium_pids()
-pid_length = len(pid)
-if (not pid):
-  print(appName + "not running")
-  print("Open " + appName + "? Y / N")
-  inp = input()[0].lower()
-  if(inp == 'y'):
-    # opens helium
-    inp2 = input("How many instances?")
-    print("opening " + appName)
-    for i in range(int(inp2)):
-        os.system(f"open -n {appName}.app")
-    time.sleep(0.5)
-    pid = get_helium_pids() # assigns new pid
-    pid_length = len(pid)
-  else:
-    print("okay closing...")
-    time.sleep(1)
-    exit()
-
-print(appName + " found!")
-print("PID:" + str(pid))
-
-print("you have " + str(waitTime) + "seconds")
-for i in reversed(range(waitTime)):
-  time.sleep(1)
-  print(str(i) + "...")
-
-bring_to_front(pid)
-
-while True:
-    time.sleep(120)
-    while len(get_helium_pids()) is not pid_length:
-        os.system(f"open -n {appName}.app")
-        print(f"opened {appName} again")
-        bring_to_front(get_helium_pids())
-print("DONE")
+run()
